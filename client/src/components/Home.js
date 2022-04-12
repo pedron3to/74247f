@@ -170,7 +170,13 @@ const Home = ({ user, logout }) => {
   const fetchConversations = useCallback(async () => {
     try {
       const { data } = await axios.get("/api/conversations");
-      setConversations(data);
+
+      const reverseMessagesArray = data.map((item) => ({
+        ...item,
+        messages: item.messages.reverse(),
+      }));
+
+      setConversations(reverseMessagesArray);
     } catch (error) {
       console.error(error);
     }
@@ -190,11 +196,8 @@ const Home = ({ user, logout }) => {
 
   const postMessage = useCallback(
     async (body) => {
-      console.log({ body });
       try {
         const data = await saveMessage(body);
-
-        console.log("data", data);
 
         if (!body.conversationId) {
           addNewConvo(body.recipientId, data.message);
