@@ -81,7 +81,7 @@ const Signup = ({ user, register }) => {
             Need to log in?
           </Typography>
           <Link href='/login' to='/login'>
-            <Button variant='secondarySignup' title='Login' />
+            <Button variant='secondary' title='Login' />
           </Link>
         </Box>
         <form onSubmit={handleRegister}>

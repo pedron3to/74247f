@@ -74,7 +74,7 @@ const Login = ({ user, login }) => {
             Don’t have an account?
           </Typography>
           <Link href='/register' to='/register'>
-            <Button variant='secondaryLogin' title='Create account' />
+            <Button variant='secondary' title='Create account' />
           </Link>
         </Box>
         <form onSubmit={handleLogin}>
