@@ -1,11 +1,83 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+button {
+  border: none;
+}
+
+.MuiFormLabel-root {
+  color: #b0b0b0 !important;
+  padding: 0;
+  font-size: 14px !important;
+  font-family: Open Sans, sans-serif;
+  font-weight: 400 !important;
+  line-height: 19px !important;
+}
+
+.MuiInputBase-input {
+  font: inherit;
+  color: currentColor;
+  width: 100%;
+  border: 0;
+  height: 1.1876em;
+  margin: 0;
+  display: block;
+  padding: 45px 0 7px !important;
+  min-width: 0;
+  background: none;
+  box-sizing: content-box;
+  animation-name: mui-auto-fill-cancel;
+  letter-spacing: inherit;
+  animation-duration: 10ms;
+  -webkit-tap-highlight-color: transparent;
+}
+
+label + .MuiInput-formControl {
+  margin-top: 0px;
+}
+
+.MuiFormControl-marginNormal {
+  margin-top: 0px !important;
+}
+
+a:-webkit-any-link {
+  color: #3a8dff;
+  cursor: pointer;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+p {
+  display: block;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+.MuiInputAdornment-positionEnd {
+  margin-left: 8px;
+  margin-top: 32px;
+}
+
+form {
+  display: table-caption;
+  margin-top: 0em;
+}
+
+input[type="password"] {
+  font-family: Verdana;
+  letter-spacing: 0.125em;
 }
