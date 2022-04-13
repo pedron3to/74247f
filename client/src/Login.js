@@ -81,7 +81,7 @@ const Login = ({ user, login }) => {
           <Box className={classes.loginFormWrapper}>
             <Typography variant='h1'>Welcome back!</Typography>
 
-            <InputForm label='UserName' name='username' type='text' />
+            <InputForm label='Username' name='username' type='text' />
 
             <InputForm
               label='Password'
