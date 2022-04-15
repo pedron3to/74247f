@@ -4,31 +4,36 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
   primary: {
-    paddingLeft: 53,
-    paddingRight: 53,
-    paddingTop: 16,
-    paddingBottom: 16,
+    width: 160,
     height: 56,
     borderRadius: 3,
     fontSize: 16,
     lineHeight: "24px",
-    fontWeight: 700,
+    fontWeight: 600,
     background: "#3A8DFF",
     color: "#fff",
   },
-
-  secondary: {
-    paddingTop: 16,
-    paddingBottom: 16,
-    paddingLeft: 33,
-    paddingRight: 33,
+  secondaryLogin: {
+    width: 170,
+    height: 54,
+    fontSize: 14,
+    borderRadius: 5,
+    lineHeight: "19.07px",
+    fontWeight: 600,
+    color: "#3A8DFF",
+    background: "#fff",
+    boxShadow: "0px 2px 12px rgba(74, 106, 149, 0.08)",
+  },
+  secondarySignup: {
+    width: 140,
+    height: 54,
     borderRadius: 5,
     fontSize: 14,
     lineHeight: "19.07px",
     fontWeight: 600,
     color: "#3A8DFF",
     background: "#fff",
-    boxShadow: "0px 2px 12px rgba(74, 106, 149, 0.2)",
+    boxShadow: "0px 2px 12px rgba(74, 106, 149, 0.08)",
   },
 }));
 
@@ -39,7 +44,9 @@ const Button = ({ title, variant, type, onClick }) => {
     <button
       className={`
       ${variant === "primary" && classes.primary}  
-      ${variant === "secondary" && classes.secondary} `}
+      ${variant === "secondarySignup" && classes.secondarySignup}
+      ${variant === "secondaryLogin" && classes.secondaryLogin}
+      `}
       type={type}
       onClick={onClick}
       aria-label={title}
