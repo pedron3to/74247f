@@ -20,6 +20,11 @@ const useStyles = makeStyles(() => ({
     lineHeight: "16px",
     fontWeight: 600,
     display: "flex",
+    marginRight: 12,
+    marginTop: 32,
+  },
+  MuiFormLabel: {
+    paddingLeft: 20,
   },
 }));
 
