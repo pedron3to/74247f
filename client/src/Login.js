@@ -1,56 +1,15 @@
 import React, { useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { Box, Typography } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
-import Layout from "./components/Layout";
 import Button from "./components/Button";
-
-import { makeStyles } from "@material-ui/core/styles";
+import ButtonWrapper from "./components/ButtonWrapper";
+import Form from "./components/Form";
+import HeaderSignupLogin from "./components/HeaderSignupLogin";
 import InputForm from "./components/InputForm";
-
-const useStyles = makeStyles((theme) => ({
-  contentContainer: {
-    width: 420,
-    marginLeft: "auto",
-    marginRight: "auto",
-    [theme.breakpoints.down("sm")]: {
-      width: "fit-content",
-    },
-  },
-  createAccountWrapper: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    marginTop: 30,
-    [theme.breakpoints.down("sm")]: {
-      justifyContent: "center",
-    },
-  },
-  subtitle1: {
-    marginRight: 30,
-  },
-  loginFormWrapper: {
-    width: 380,
-    marginTop: "20vh",
-    alignItems: "center",
-    [theme.breakpoints.down("sm")]: {
-      flexDirection: "column",
-      width: "fit-content",
-      padding: 16,
-    },
-  },
-  buttonWrapper: {
-    display: "flex",
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 60,
-  },
-}));
+import Layout from "./components/Layout";
 
 const Login = ({ user, login }) => {
   const history = useHistory();
-  const classes = useStyles();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -68,34 +27,19 @@ const Login = ({ user, login }) => {
 
   return (
     <Layout>
-      <Box className={classes.contentContainer}>
-        <Box className={classes.createAccountWrapper}>
-          <Typography className={classes.subtitle1} variant='subtitle1'>
-            Don’t have an account?
-          </Typography>
-          <Link href='/register' to='/register'>
-            <Button variant='secondary' title='Create account' />
-          </Link>
-        </Box>
-        <form onSubmit={handleLogin}>
-          <Box className={classes.loginFormWrapper}>
-            <Typography variant='h1'>Welcome back!</Typography>
-
-            <InputForm label='Username' name='username' type='text' />
-
-            <InputForm
-              label='Password'
-              name='password'
-              type='password'
-              hasForgot
-            />
-
-            <Box className={classes.buttonWrapper}>
-              <Button type='primary' variant='primary' title='Login' />
-            </Box>
-          </Box>
-        </form>
-      </Box>
+      <HeaderSignupLogin
+        title="Don't have an account?"
+        href='/register'
+        titleButton='Create account'
+        variantButton='secondaryLogin'
+      />
+      <Form handleSubmit={handleLogin} title='Welcome back!'>
+        <InputForm label='Username' name='username' type='text' />
+        <InputForm label='Password' name='password' type='password' hasForgot />
+        <ButtonWrapper marginTop={45}>
+          <Button type='primary' variant='primary' title='Login' />
+        </ButtonWrapper>
+      </Form>
     </Layout>
   );
 };
