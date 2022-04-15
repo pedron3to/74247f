@@ -20,6 +20,18 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
     },
   },
+  contentWrapper: {
+    width: 460,
+    marginLeft: "auto",
+    marginRight: 42,
+    [theme.breakpoints.down("sm")]: {
+      width: "fit-content",
+      marginRight: "auto",
+    },
+    [theme.breakpoints.up("lg")]: {
+      marginRight: "auto",
+    },
+  },
 }));
 
 const Layout = ({ children }) => {
@@ -29,7 +41,9 @@ const Layout = ({ children }) => {
   return (
     <Box className={classes.boxContainer}>
       {isDesktop && <SideBanner />}
-      <Box className={classes.contentContainer}>{children}</Box>
+      <Box className={classes.contentContainer}>
+        <Box className={classes.contentWrapper}>{children}</Box>
+      </Box>
     </Box>
   );
 };
