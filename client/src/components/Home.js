@@ -91,8 +91,9 @@ const Home = ({ user, logout }) => {
       });
 
       setConversations(conversations);
+      fetchConversations();
     },
-    [setConversations, conversations]
+    [setConversations, conversations, fetchConversations]
   );
 
   const addMessageToConversation = useCallback(
