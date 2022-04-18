@@ -54,29 +54,31 @@ const Home = ({ user, logout }) => {
     return data;
   };
 
-  const sendMessage = (data, body) => {
-    socket.emit("new-message", {
-      message: data.message,
-      recipientId: body.recipientId,
-      sender: data.sender,
-    });
-  };
+  const sendMessage = useCallback(
+    (data, body) => {
+      socket.emit("new-message", {
+        message: data.message,
+        recipientId: body.recipientId,
+        sender: data.sender,
+      });
+    },
+    [socket]
+  );
 
-  const postMessage = (body) => {
+  const fetchConversations = useCallback(async () => {
     try {
-      const data = saveMessage(body);
+      const { data } = await axios.get("/api/conversations");
 
-      if (!body.conversationId) {
-        addNewConvo(body.recipientId, data.message);
-      } else {
-        addMessageToConversation(data);
-      }
+      const reverseMessagesArray = data.map((item) => ({
+        ...item,
+        messages: item.messages.reverse(),
+      }));
 
-      sendMessage(data, body);
+      setConversations(reverseMessagesArray);
     } catch (error) {
       console.error(error);
     }
-  };
+  }, []);
 
   const addNewConvo = useCallback(
     (recipientId, message) => {
@@ -87,10 +89,13 @@ const Home = ({ user, logout }) => {
           convo.id = message.conversationId;
         }
       });
+
       setConversations(conversations);
+      fetchConversations();
     },
-    [setConversations, conversations],
+    [setConversations, conversations, fetchConversations]
   );
+
   const addMessageToConversation = useCallback(
     (data) => {
       // if sender isn't null, that means the message needs to be put in a brand new convo
@@ -112,8 +117,9 @@ const Home = ({ user, logout }) => {
         }
       });
       setConversations(conversations);
+      fetchConversations();
     },
-    [setConversations, conversations],
+    [setConversations, conversations, fetchConversations]
   );
 
   const setActiveChat = (username) => {
@@ -130,7 +136,7 @@ const Home = ({ user, logout }) => {
         } else {
           return convo;
         }
-      }),
+      })
     );
   }, []);
 
@@ -144,7 +150,7 @@ const Home = ({ user, logout }) => {
         } else {
           return convo;
         }
-      }),
+      })
     );
   }, []);
 
@@ -179,18 +185,10 @@ const Home = ({ user, logout }) => {
   }, [user, history, isLoggedIn]);
 
   useEffect(() => {
-    const fetchConversations = async () => {
-      try {
-        const { data } = await axios.get("/api/conversations");
-        setConversations(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
     if (!user.isFetching) {
       fetchConversations();
     }
-  }, [user]);
+  }, [user, fetchConversations]);
 
   const handleLogout = async () => {
     if (user && user.id) {
@@ -198,10 +196,29 @@ const Home = ({ user, logout }) => {
     }
   };
 
+  const postMessage = useCallback(
+    async (body) => {
+      try {
+        const data = await saveMessage(body);
+
+        if (!body.conversationId) {
+          addNewConvo(body.recipientId, data.message);
+        } else {
+          addMessageToConversation(data);
+        }
+
+        sendMessage(data, body);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [addMessageToConversation, addNewConvo, sendMessage]
+  );
+
   return (
     <>
       <Button onClick={handleLogout}>Logout</Button>
-      <Grid container component="main" className={classes.root}>
+      <Grid container component='main' className={classes.root}>
         <CssBaseline />
         <SidebarContainer
           conversations={conversations}
