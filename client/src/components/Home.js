@@ -65,6 +65,21 @@ const Home = ({ user, logout }) => {
     [socket]
   );
 
+  const fetchConversations = useCallback(async () => {
+    try {
+      const { data } = await axios.get("/api/conversations");
+
+      const reverseMessagesArray = data.map((item) => ({
+        ...item,
+        messages: item.messages.reverse(),
+      }));
+
+      setConversations(reverseMessagesArray);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
   const addNewConvo = useCallback(
     (recipientId, message) => {
       conversations.forEach((convo) => {
@@ -101,8 +116,9 @@ const Home = ({ user, logout }) => {
         }
       });
       setConversations(conversations);
+      fetchConversations();
     },
-    [setConversations, conversations]
+    [setConversations, conversations, fetchConversations]
   );
 
   const setActiveChat = (username) => {
@@ -167,21 +183,6 @@ const Home = ({ user, logout }) => {
     }
   }, [user, history, isLoggedIn]);
 
-  const fetchConversations = useCallback(async () => {
-    try {
-      const { data } = await axios.get("/api/conversations");
-
-      const reverseMessagesArray = data.map((item) => ({
-        ...item,
-        messages: item.messages.reverse(),
-      }));
-
-      setConversations(reverseMessagesArray);
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
-
   useEffect(() => {
     if (!user.isFetching) {
       fetchConversations();
@@ -206,12 +207,11 @@ const Home = ({ user, logout }) => {
         }
 
         sendMessage(data, body);
-        fetchConversations();
       } catch (error) {
         console.error(error);
       }
     },
-    [addMessageToConversation, addNewConvo, sendMessage, fetchConversations]
+    [addMessageToConversation, addNewConvo, sendMessage]
   );
 
   return (
