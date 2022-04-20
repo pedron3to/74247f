@@ -1,20 +1,6 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-button {
-  border: none;
 }
 
 a:-webkit-any-link {
@@ -22,17 +8,4 @@ a:-webkit-any-link {
   cursor: pointer;
   text-decoration: none;
   cursor: pointer;
-}
-
-p {
-  display: block;
-  margin-block-start: 0em;
-  margin-block-end: 0em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-}
-
-input[type="password"] {
-  font-family: Verdana;
-  letter-spacing: 0.125em;
 }
