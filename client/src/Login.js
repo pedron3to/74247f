@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import Button from "./components/Button";
-import ButtonWrapper from "./components/ButtonWrapper";
-import Form from "./components/Form";
-import HeaderSignupLogin from "./components/HeaderSignupLogin";
-import InputForm from "./components/InputForm";
-import Layout from "./components/Layout";
+import Button from './components/Button';
+import ButtonWrapper from './components/ButtonWrapper';
+import Form from './components/Form';
+import HeaderSignupLogin from './components/HeaderSignupLogin';
+import InputForm from './components/InputForm';
+import Layout from './components/Layout';
 
 const Login = ({ user, login }) => {
   const history = useHistory();
@@ -22,7 +22,7 @@ const Login = ({ user, login }) => {
   };
 
   useEffect(() => {
-    if (user && user.id) history.push("/home");
+    if (user && user.id) history.push('/home');
   }, [user, history]);
 
   return (
