@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
   root: {
     paddingLeft: 21,
     paddingRight: 21,
-    flexGrow: 1,
+    height: '93vh',
   },
   title: {
     fontSize: 20,
