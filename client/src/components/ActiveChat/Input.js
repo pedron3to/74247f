@@ -73,7 +73,7 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
           .then((res) => {
             resolve(res.data.secure_url);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.error(err));
       });
     });
 
