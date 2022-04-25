@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box } from '@material-ui/core';
 import { SenderBubble, OtherUserBubble } from '.';
 import moment from 'moment';
@@ -7,8 +7,8 @@ import ViewImage from './ViewImage';
 const Messages = (props) => {
   const { messages, otherUser, userId } = props;
   const boxMessages = useRef(null);
-  const [openViewImage, setOpenViewImage] = React.useState(false);
-  const [url, setUrl] = React.useState('');
+  const [openViewImage, setOpenViewImage] = useState(false);
+  const [url, setUrl] = useState('');
 
   const handleClickOpen = (image) => {
     setOpenViewImage(true);
