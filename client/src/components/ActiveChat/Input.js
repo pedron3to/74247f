@@ -16,8 +16,9 @@ import UploadImage from './UploadImage';
 
 import UploadIcon from './assets/upload.svg';
 import useOutsidePreviewUploadImage from '../../hooks/useOutsidePreviewUploadImage';
+import axios from 'axios';
 
-const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/drao22peg/image/upload';
+const cloudinaryInstance = axios.create();
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -43,14 +44,14 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
   const previewUploadImageRef = useRef(null);
 
   const [text, setText] = useState('');
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState(null);
 
   const handleChange = (event) => {
     setText(event.target.value);
   };
 
   const previewUploadImageRefCallback = () => {
-    setImages([]);
+    setImages(null);
   };
 
   useOutsidePreviewUploadImage(
@@ -59,20 +60,26 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
   );
 
   const handleUploadImage = async (event) => {
+    const form = event.target.files;
     const formData = new FormData();
 
-    const form = event.target.files;
-
-    for (const file of form) {
+    const promises = await Object.values(form).map(async (file) => {
       formData.append('file', file);
-      formData.append('upload_preset', 'my-uploads');
-      const data = await fetch(cloudinaryUrl, {
-        method: 'POST',
-        body: formData,
-      }).then((r) => r.json());
+      formData.append('upload_preset', `${process.env.REACT_APP_CLOUDPRESET}`);
 
-      setImages((prev) => [...prev, data.secure_url]);
-    }
+      return new Promise((resolve) => {
+        cloudinaryInstance
+          .post(`${process.env.REACT_APP_CLOUDINARY}`, formData)
+          .then((res) => {
+            resolve(res.data.secure_url);
+          })
+          .catch((err) => console.log(err));
+      });
+    });
+
+    const cloudinaryImages = await Promise.all(promises);
+
+    setImages(cloudinaryImages);
   };
 
   const handleSubmit = async (event) => {
@@ -90,7 +97,7 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
     };
     await postMessage(reqBody);
     setText('');
-    setImages([]);
+    setImages(null);
   };
 
   const handleDeleteCurrentData = (index) => {
@@ -99,7 +106,7 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
 
   return (
     <Box className={classes.container} ref={previewUploadImageRef}>
-      {images.length !== 0 && (
+      {images && (
         <PreviewUploadImage
           images={images}
           handleDeleteImage={(index) => handleDeleteCurrentData(index)}
@@ -114,7 +121,7 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
           <FilledInput
             endAdornment={
               <InputAdornment position='end'>
-                {images.length !== 0 ? (
+                {images ? (
                   <Button type='submit'>
                     <Send />
                   </Button>
