@@ -8,13 +8,14 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexGrow: 8,
     flexDirection: 'column',
+    height: '93vh',
   },
   chatContainer: {
     marginLeft: 41,
     marginRight: 41,
     display: 'flex',
     flexDirection: 'column',
-    flexGrow: 1,
+    height: '100vh',
     justifyContent: 'space-between',
   },
 }));
